@@ -1,0 +1,28 @@
+services:
+
+    simple_auth.security.user_provider:
+        class: evaisse\SimpleAuthBundle\Security\UserProvider
+
+    simple_auth.security.authentication.provider:
+        class: evaisse\SimpleAuthBundle\Security\AuthenticationProvider
+        arguments: ["@simple_auth.security.user_provider"]
+
+    simple_auth.security.authentication.listener:
+        class: evaisse\SimpleAuthBundle\Security\FirewallListener
+        arguments: ["@security.token_storage", "@security.authentication.manager", '@logger']
+        tags:
+            - { name: monolog.logger, channel: simple_auth }
+
+    simple_auth.firewall_entry_point:
+        class: evaisse\SimpleAuthBundle\Security\EntryPoint
+        arguments: ["@logger", "@router"]
+        tags:
+            - { name: monolog.logger, channel: simple_auth }
+
+    simple_auth:
+        class: evaisse\SimpleAuthBundle\SimpleAuth
+        arguments: ["@event_dispatcher", "@security.token_storage"]
+        tags:
+            - { name: monolog.logger, channel: simple_auth }
+        calls:
+            - [setLogger, ["@logger"]]

@@ -1,0 +1,16 @@
+{
+    "name": "evaisse/simple-auth-bundle",
+    "description": "A custom implementation of authentication in symfony, without user storage and very minimal configuration",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Emmanuel VAISSE",
+            "email": "evaisse@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "symfony/symfony": "3.4.*"
+    }
+}
